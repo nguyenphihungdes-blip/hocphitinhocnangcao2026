@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#f7f2e9" />
+  <title>Xác nhận học phí Tin học hè 2026</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <main class="page-shell">
+    <section class="hero card">
+      <div>
+        <p class="eyebrow">TIN HỌC HÈ 2026</p>
+        <h1>Đăng ký và xác nhận học phí khóa Tin học hè 2026</h1>
+        <p class="lead">Phụ huynh vui lòng chọn đúng lớp, học sinh và gửi ảnh xác nhận chuyển khoản.</p>
+      </div>
+      <div class="fee-badge">
+        <span>Học phí</span>
+        <strong>500.000đ</strong>
+      </div>
+    </section>
+
+    <section class="layout">
+      <form id="paymentForm" class="card form-card" novalidate>
+        <div class="section-heading">
+          <span class="step">1</span>
+          <div>
+            <h2>Thông tin học sinh</h2>
+            <p>Chọn lớp trước để tải đúng danh sách học sinh.</p>
+          </div>
+        </div>
+
+        <label class="field">
+          <span>Lớp đăng ký</span>
+          <select id="className" required>
+            <option value="">— Chọn lớp —</option>
+            <option value="Lớp 1">Lớp 1</option>
+            <option value="Lớp 2">Lớp 2</option>
+          </select>
+        </label>
+
+        <label class="field">
+          <span>Tên học sinh</span>
+          <select id="studentName" required disabled>
+            <option value="">— Vui lòng chọn lớp trước —</option>
+          </select>
+        </label>
+
+        <div class="payment-note" id="transferContentBox" hidden>
+          <span>Nội dung chuyển khoản</span>
+          <strong id="transferContent"></strong>
+          <button type="button" id="copyContent" class="text-button">Sao chép</button>
+        </div>
+
+        <div class="section-heading upload-heading">
+          <span class="step">2</span>
+          <div>
+            <h2>Ảnh xác nhận thanh toán</h2>
+            <p>Chụp rõ giao dịch thành công, số tiền và thời gian chuyển khoản.</p>
+          </div>
+        </div>
+
+        <label class="upload-box" id="uploadBox">
+          <input id="proofImage" type="file" accept="image/jpeg,image/png,image/webp" required />
+          <span class="upload-icon">＋</span>
+          <strong>Chọn hoặc chụp ảnh biên lai</strong>
+          <small>JPG, PNG hoặc WEBP · tối đa 8 MB</small>
+          <img id="preview" alt="Xem trước ảnh biên lai" hidden />
+        </label>
+
+        <label class="consent-row">
+          <input id="confirmInfo" type="checkbox" required />
+          <span>Tôi xác nhận đã chọn đúng học sinh và ảnh giao dịch.</span>
+        </label>
+
+        <button id="submitButton" class="primary-button" type="submit">
+          <span>Gửi xác nhận học phí</span>
+        </button>
+
+        <div id="statusMessage" class="status" role="status" aria-live="polite"></div>
+      </form>
+
+      <aside class="card bank-card">
+        <div class="section-heading compact">
+          <span class="step">QR</span>
+          <div>
+            <h2>Thông tin chuyển khoản</h2>
+            <p>Quét mã bằng ứng dụng ngân hàng.</p>
+          </div>
+        </div>
+
+        <div class="qr-wrap">
+          <img src="assets/qr-sacombank.jpg" alt="Mã QR Sacombank của Nguyễn Phi Hùng" />
+        </div>
+
+        <dl class="bank-details">
+          <div><dt>Ngân hàng</dt><dd>Sacombank</dd></div>
+          <div><dt>Số tài khoản</dt><dd>952668</dd></div>
+          <div><dt>Chủ tài khoản</dt><dd>NGUYỄN PHI HÙNG</dd></div>
+          <div><dt>Số tiền</dt><dd>500.000đ</dd></div>
+        </dl>
+
+        <div class="contact-box">
+          <strong>Hỗ trợ</strong>
+          <p>Liên hệ thầy Nguyễn Phi Hùng qua Zalo:</p>
+          <a href="tel:0988980510">0988 980 510</a>
+        </div>
+      </aside>
+    </section>
+
+    <footer>© 2026 Nguyễn Phi Hùng · Khóa Tin học hè</footer>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
