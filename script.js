@@ -1,4 +1,4 @@
-const APPS_SCRIPT_URL = "PASTE_YOUR_APPS_SCRIPT_WEB_APP_URL_HERE";
+const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwikncbbcz7xrORA5ihTGy7m3mKYXlX6CducmY2HWzaKzK-aHPbvcIEh8NjOIhdCk7a/exec";
 const MAX_FILE_SIZE = 8 * 1024 * 1024;
 
 const studentsByClass = {
