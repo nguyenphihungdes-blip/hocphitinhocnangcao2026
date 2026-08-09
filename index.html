@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="theme-color" content="#f7f2e9" />
-  <title>Xác nhận học phí Tin học hè 2026</title>
+  <title>Xác nhận học phí Tin học tháng 8/2026</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -14,9 +14,9 @@
   <main class="page-shell">
     <section class="hero card">
       <div>
-        <p class="eyebrow">TIN HỌC HÈ 2026</p>
-        <h1>Đăng ký và xác nhận học phí khóa Tin học hè 2026</h1>
-        <p class="lead">Phụ huynh vui lòng chọn đúng lớp, học sinh và gửi ảnh xác nhận chuyển khoản.</p>
+        <p class="eyebrow">TIN HỌC THÁNG 8/2026</p>
+        <h1>Xác nhận học phí lớp Tin học</h1>
+        <p class="lead">Phụ huynh chỉ cần chọn đúng lớp và tên học sinh. Không cần tải ảnh minh chứng.</p>
       </div>
       <div class="fee-badge">
         <span>Học phí</span>
@@ -29,17 +29,17 @@
         <div class="section-heading">
           <span class="step">1</span>
           <div>
-            <h2>Thông tin học sinh</h2>
-            <p>Chọn lớp trước để tải đúng danh sách học sinh.</p>
+            <h2>Chọn học sinh</h2>
+            <p>Chọn lớp trước để hiển thị đúng danh sách.</p>
           </div>
         </div>
 
         <label class="field">
-          <span>Lớp đăng ký</span>
+          <span>Lớp</span>
           <select id="className" required>
             <option value="">— Chọn lớp —</option>
-            <option value="Lớp 1">Lớp 1</option>
-            <option value="Lớp 2">Lớp 2</option>
+            <option value="Lớp Nền Tảng Vững">Lớp Nền Tảng Vững</option>
+            <option value="Lớp Bứt Phá Nâng Cao">Lớp Bứt Phá Nâng Cao</option>
           </select>
         </label>
 
@@ -56,29 +56,13 @@
           <button type="button" id="copyContent" class="text-button">Sao chép</button>
         </div>
 
-        <div class="section-heading upload-heading">
+        <div class="simple-note">
           <span class="step">2</span>
-          <div>
-            <h2>Ảnh xác nhận thanh toán</h2>
-            <p>Chụp rõ giao dịch thành công, số tiền và thời gian chuyển khoản.</p>
-          </div>
+          <p>Sau khi chuyển khoản, bấm nút bên dưới để thầy ghi nhận học phí.</p>
         </div>
 
-        <label class="upload-box" id="uploadBox">
-          <input id="proofImage" type="file" accept="image/jpeg,image/png,image/webp" required />
-          <span class="upload-icon">＋</span>
-          <strong>Chọn hoặc chụp ảnh biên lai</strong>
-          <small>JPG, PNG hoặc WEBP · tối đa 8 MB</small>
-          <img id="preview" alt="Xem trước ảnh biên lai" hidden />
-        </label>
-
-        <label class="consent-row">
-          <input id="confirmInfo" type="checkbox" required />
-          <span>Tôi xác nhận đã chọn đúng học sinh và ảnh giao dịch.</span>
-        </label>
-
         <button id="submitButton" class="primary-button" type="submit">
-          <span>Gửi xác nhận học phí</span>
+          <span>Xác nhận đã đóng học phí</span>
         </button>
 
         <div id="statusMessage" class="status" role="status" aria-live="polite"></div>
@@ -112,7 +96,7 @@
       </aside>
     </section>
 
-    <footer>© 2026 Nguyễn Phi Hùng · Khóa Tin học hè</footer>
+    <footer>© 2026 Nguyễn Phi Hùng · Lớp Tin học</footer>
   </main>
 
   <script src="script.js"></script>

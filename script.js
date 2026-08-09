@@ -1,30 +1,24 @@
-const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwikncbbcz7xrORA5ihTGy7m3mKYXlX6CducmY2HWzaKzK-aHPbvcIEh8NjOIhdCk7a/exec";
-const MAX_FILE_SIZE = 8 * 1024 * 1024;
+const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbw2etvQL1nvRL8I4bgWqPVQT9cGq1BVWI1qtSz_nKISApN2-hIv7NQ9v7WA5OianKW0Ig/exec";
 
 const studentsByClass = {
-  "Lớp 1": [
+  "Lớp Nền Tảng Vững": [
     "Lê Văn Minh Tấn",
-    "Đỗ Nguyên Ngọc Huyền",
-    "Hà Nguyễn Quỳnh Anh",
-    "Lương Đức Anh",
-    "Nguyễn Minh Phương",
-    "Hứa Gia Hưng",
-    "Nguyễn Ngọc Hồng Linh",
-    "Đặng Hữu Thịnh",
-    "Mạch Thị Ngọc Hà",
-    "Phạm Thanh Phong",
-    "Huỳnh Tấn Phát"
+    "Lê Đào Gia Linh",
+    "Hứa Gia Hưng"
   ],
-  "Lớp 2": [
-    "Hồ Nguyên Gia Phúc",
-    "Phạm Thị Ngọc Hân",
-    "Mai Trần Trọng Nhân",
-    "Trần Hoài Bảo",
-    "Nguyễn Trần Duy Ân",
-    "Chu Thị Trâm Anh",
-    "Bùi Tuệ Gia Linh",
-    "Nguyễn Mậu Nhật Nam",
+  "Lớp Bứt Phá Nâng Cao": [
+    "Hà Nguyễn Quỳnh Anh",
+    "Nguyễn Ngọc Hồng Linh",
+    "Huỳnh Tấn Phát",
+    "Đặng Hữu Thịnh",
     "Vũ Đức Hải",
+    "Trần Hoài Bảo",
+    "Mai Trần Trọng Nhân",
+    "Phạm Thanh Phong",
+    "Nguyễn Mậu Nhật Nam",
+    "Chu Thị Trâm Anh",
+    "Nguyễn Trần Duy Ân",
+    "Lương Đức Anh",
     "Nguyễn Cửu Nam Anh"
   ]
 };
@@ -32,8 +26,6 @@ const studentsByClass = {
 const form = document.querySelector("#paymentForm");
 const classSelect = document.querySelector("#className");
 const studentSelect = document.querySelector("#studentName");
-const proofInput = document.querySelector("#proofImage");
-const preview = document.querySelector("#preview");
 const statusMessage = document.querySelector("#statusMessage");
 const submitButton = document.querySelector("#submitButton");
 const contentBox = document.querySelector("#transferContentBox");
@@ -42,23 +34,30 @@ const contentText = document.querySelector("#transferContent");
 classSelect.addEventListener("change", () => {
   const list = studentsByClass[classSelect.value] || [];
   studentSelect.innerHTML = '<option value="">— Chọn học sinh —</option>';
+
   list.forEach((student) => {
     const option = document.createElement("option");
     option.value = student;
     option.textContent = student;
     studentSelect.appendChild(option);
   });
+
   studentSelect.disabled = list.length === 0;
   updateTransferContent();
+  setStatus("", "");
 });
 
-studentSelect.addEventListener("change", updateTransferContent);
+studentSelect.addEventListener("change", () => {
+  updateTransferContent();
+  setStatus("", "");
+});
 
 function updateTransferContent() {
   if (!classSelect.value || !studentSelect.value) {
     contentBox.hidden = true;
     return;
   }
+
   contentText.textContent = `${studentSelect.value.toUpperCase()} - ${classSelect.value.toUpperCase()} - HOC PHI`;
   contentBox.hidden = false;
 }
@@ -72,47 +71,17 @@ document.querySelector("#copyContent").addEventListener("click", async () => {
   }
 });
 
-proofInput.addEventListener("change", () => {
-  const file = proofInput.files[0];
-  preview.hidden = true;
-  if (!file) return;
-  if (file.size > MAX_FILE_SIZE) {
-    proofInput.value = "";
-    setStatus("Ảnh vượt quá 8 MB. Vui lòng chọn ảnh nhỏ hơn.", "error");
-    return;
-  }
-  preview.src = URL.createObjectURL(file);
-  preview.hidden = false;
-  setStatus("", "");
-});
-
 form.addEventListener("submit", async (event) => {
   event.preventDefault();
   setStatus("", "");
 
-  if (APPS_SCRIPT_URL.includes("PASTE_YOUR")) {
-    setStatus("Trang chưa được cấu hình địa chỉ Google Apps Script.", "error");
-    return;
-  }
   if (!form.reportValidity()) return;
-
-  const file = proofInput.files[0];
-  if (!file || file.size > MAX_FILE_SIZE) {
-    setStatus("Vui lòng chọn ảnh biên lai hợp lệ, tối đa 8 MB.", "error");
-    return;
-  }
 
   toggleSubmitting(true);
   try {
-    const imageData = await fileToBase64(file);
     const payload = {
       className: classSelect.value,
-      studentName: studentSelect.value,
-      amount: 500000,
-      transferContent: contentText.textContent,
-      fileName: file.name,
-      mimeType: file.type,
-      imageData
+      studentName: studentSelect.value
     };
 
     const response = await fetch(APPS_SCRIPT_URL, {
@@ -123,14 +92,12 @@ form.addEventListener("submit", async (event) => {
     });
 
     const result = await response.json();
-    if (!result.ok) throw new Error(result.message || "Không thể gửi xác nhận.");
+    if (!result.ok) throw new Error(result.message || "Không thể ghi nhận học phí.");
 
-    setStatus("Đã gửi xác nhận thành công. Cảm ơn phụ huynh!", "success");
+    setStatus("Đã ghi nhận học phí thành công. Cảm ơn phụ huynh!", "success");
     form.reset();
     studentSelect.disabled = true;
     studentSelect.innerHTML = '<option value="">— Vui lòng chọn lớp trước —</option>';
-    preview.hidden = true;
-    preview.removeAttribute("src");
     contentBox.hidden = true;
   } catch (error) {
     setStatus(error.message || "Có lỗi xảy ra. Vui lòng thử lại hoặc liên hệ thầy.", "error");
@@ -139,18 +106,11 @@ form.addEventListener("submit", async (event) => {
   }
 });
 
-function fileToBase64(file) {
-  return new Promise((resolve, reject) => {
-    const reader = new FileReader();
-    reader.onload = () => resolve(String(reader.result).split(",")[1]);
-    reader.onerror = () => reject(new Error("Không đọc được ảnh đã chọn."));
-    reader.readAsDataURL(file);
-  });
-}
-
 function toggleSubmitting(isSubmitting) {
   submitButton.disabled = isSubmitting;
-  submitButton.querySelector("span").textContent = isSubmitting ? "Đang gửi..." : "Gửi xác nhận học phí";
+  submitButton.querySelector("span").textContent = isSubmitting
+    ? "Đang ghi nhận..."
+    : "Xác nhận đã đóng học phí";
 }
 
 function setStatus(message, type) {
